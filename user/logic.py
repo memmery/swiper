@@ -7,7 +7,7 @@ from django.core.cache import cache
 from django.conf import settings
 
 from swiper import config
-# from worker import call_by_worker
+from worker import call_by_worker
 # from worker import celery_app
 # from lib.qncloud import async_upload_to_qiniu
 
@@ -16,8 +16,9 @@ def gen_verify_code(length=6):
     '''产生一个验证码'''
     return random.randrange(10 ** (length - 1), 10 ** length)
 
+import time
 
-# @call_by_worker
+@call_by_worker
 def send_verify_code(phonenum):     #有必要的话这里需要处理异常
     '''异步发送验证码'''
     vcode = gen_verify_code()
@@ -27,9 +28,11 @@ def send_verify_code(phonenum):     #有必要的话这里需要处理异常
     sms_cfg['content'] = sms_cfg['content'] % vcode
 
     sms_cfg['mobile'] = phonenum
-    print('sms_cfg-1',sms_cfg)
+
     response = requests.post(config.HY_SMS_URL, data=sms_cfg)
-    print('response-1',response)
+    # time.sleep(30)
+    # print('async task finished')
+    # response = None
     return response
 
 

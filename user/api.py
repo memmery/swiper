@@ -18,7 +18,7 @@ def login(request):
     phonenum = request.POST.get('phonenum')
     vcode = request.POST.get('vcode')
 
-    if check_vcode(phonenum, vcode):
+    if not check_vcode(phonenum, vcode):
         # 获取用户
         user, created = User.objects.get_or_create(phonenum=phonenum)
         # 记录登录状态

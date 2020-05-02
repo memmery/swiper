@@ -1,4 +1,8 @@
+import datetime
+
 from django.db import models
+from django.utils.functional import cached_property
+
 
 
 class User(models.Model):
@@ -19,7 +23,23 @@ class User(models.Model):
     birth_month = models.IntegerField(default=1,verbose_name='出生月')
     birth_day = models.IntegerField(default=1,verbose_name='出生日')
 
+    @property
+    def age(self):
+        today = datetime.date.today()
+        birth_date = datetime.date(self.birth_year, self.birth_month, self.birth_day)
+        times = today - birth_date
+        return times.days // 365
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'nickname': self.nickname,
+            'phonenum': self.phonenum,
+            'sex': self.sex,
+            'avatar': self.avatar,
+            'location': self.location,
+            'age': self.age,
+        }
 
 class Profile(models.Model):
     '''用户配置项'''
