@@ -1,11 +1,11 @@
 import datetime
-
+from lib.orm import ModelMixin
 from django.db import models
 from django.utils.functional import cached_property
 
 
 
-class User(models.Model):
+class User(models.Model,ModelMixin):
     '''用户数据模型'''
 
     SEX = (
@@ -30,18 +30,18 @@ class User(models.Model):
         times = today - birth_date
         return times.days // 365
 
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'nickname': self.nickname,
-            'phonenum': self.phonenum,
-            'sex': self.sex,
-            'avatar': self.avatar,
-            'location': self.location,
-            'age': self.age,
-        }
+    # def to_dict(self):  由于每处都需要所以做成多继承,ModelMixin
+    #     return {
+    #         'id': self.id,
+    #         'nickname': self.nickname,
+    #         'phonenum': self.phonenum,
+    #         'sex': self.sex,
+    #         'avatar': self.avatar,
+    #         'location': self.location,
+    #         'age': self.age,
+    #     }
 
-class Profile(models.Model):
+class Profile(models.Model,ModelMixin):
     '''用户配置项'''
 
     SEX = (
