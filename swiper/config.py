@@ -13,8 +13,8 @@ HY_SMS_PARAMS = {
 }
 
 
-# # 七牛云配置
-# QN_ACCESS_KEY = 'kEM0sRR-meB92XU43_a6xZqhiyyTuu5yreGCbFtw'
-# QN_SECRET_KEY = 'QxTKqgnOb_UVldphU261qu9IdzmjkgGHh6GQVPPy'
-# QN_BUCKET_NAME = 'swiper'
-# QN_BASE_URL = 'http://piwrt9s56.bkt.clouddn.com'
+# 七牛云配置
+QN_ACCESS_KEY = 'l0K2x5mkqKMB7HXUtliLTr95R8rE-0mDiKUwi68h'
+QN_SECRET_KEY = 'nWtUOF3X7THgbCzwm97QmEYECiMALm20wN4WyUC3'
+QN_BUCKET_NAME = 'swiper2'
+QN_BASE_URL = 'http://qaezcmqwq.bkt.clouddn.com'

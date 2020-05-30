@@ -21,10 +21,10 @@ from user import api as user_api
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
     url(r'^api/user/verify$', user_api.get_verify_code),
-    # url(r'^api/user/login$', user_api.login),
-    # url(r'^api/user/profile$', user_api.get_profile),
-    # url(r'^api/user/profile/modify$', user_api.modify_profile),
-    # url(r'^api/user/avatar/upload$', user_api.upload_avatar),
+    url(r'^api/user/login$', user_api.login),
+    url(r'^api/user/profile$', user_api.get_profile),
+    url(r'^api/user/profile/modify$', user_api.modify_profile),
+    url(r'^api/user/avatar/upload$', user_api.upload_avatar),
 
 ]
 

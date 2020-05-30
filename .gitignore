@@ -130,3 +130,7 @@ dmypy.json
 
 .idea
 .idea/vcs.xml
+medias
+.qiniu_pythonsdk_hostscache.json
+dump.rdb
+

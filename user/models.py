@@ -40,6 +40,12 @@ class User(models.Model,ModelMixin):
     #         'location': self.location,
     #         'age': self.age,
     #     }
+    @property
+    def profile(self):
+        '''用户的配置项'''
+        if not hasattr(self, '_profile'):
+            self._profile, _ = Profile.objects.get_or_create(id=self.id)
+        return self._profile
 
 class Profile(models.Model,ModelMixin):
     '''用户配置项'''
@@ -49,8 +55,9 @@ class Profile(models.Model,ModelMixin):
         ('女性', '女性'),
     )
 
+
+    dating_sex = models.CharField(default='女性', max_length=8, choices=SEX, verbose_name='匹配的性别')
     location = models.CharField(max_length=32, verbose_name='目标城市')
-    dating_sex = models.CharField(default='女', max_length=8, choices=SEX, verbose_name='匹配的性别')
 
     min_distance = models.IntegerField(default=1, verbose_name='最小查找范围')
     max_distance = models.IntegerField(default=10, verbose_name='最大查找范围')
