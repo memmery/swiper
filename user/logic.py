@@ -11,6 +11,7 @@ from worker import call_by_worker
 # from worker import celery_app
 from lib.qncloud import async_upload_to_qiniu
 from qiniu import Auth
+from common.error import VcodeExist
 
 
 def gen_verify_code(length=6):
@@ -22,19 +23,22 @@ import time
 @call_by_worker
 def send_verify_code(phonenum):     #有必要的话这里需要处理异常
     '''异步发送验证码'''
-    vcode = gen_verify_code()
     key = 'VerifyCode-%s' % phonenum
-    cache.set(key, vcode, 120)
-    sms_cfg = config.HY_SMS_PARAMS.copy()
-    sms_cfg['content'] = sms_cfg['content'] % vcode
+    if not cache.has_key(key):
+        vcode = gen_verify_code()
+        cache.set(key, vcode, 120)
+        sms_cfg = config.HY_SMS_PARAMS.copy()
+        sms_cfg['content'] = sms_cfg['content'] % vcode
 
-    sms_cfg['mobile'] = phonenum
+        sms_cfg['mobile'] = phonenum
 
-    response = requests.post(config.HY_SMS_URL, data=sms_cfg)
-    # time.sleep(30)
-    # print('async task finished')
-    # response = None
-    return response
+        response = requests.post(config.HY_SMS_URL, data=sms_cfg)
+        # time.sleep(30)
+        # print('async task finished')
+        # response = None
+        return response
+    else:
+        raise VcodeExist
 
 
 def check_vcode(phonenum, vcode):

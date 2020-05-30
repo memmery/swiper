@@ -63,8 +63,9 @@ def modify_profile(request):
 def upload_avatar(request):
     '''头像上传'''
     file = request.FILES.get('avatar')
-    if file:
+    if not file:
         save_upload_file(request.user, file)
         return render_json(None)
     else:
-        return render_json(None, error.FILE_NOT_FOUND)
+        # return render_json(None, error.FILE_NOT_FOUND)
+        raise error.FileNotFound     #最终的要写成这样
