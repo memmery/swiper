@@ -5,14 +5,14 @@ PROFILE_ERROR = 1002
 FILE_NOT_FOUND = 1003
 NOT_HAS_PERM = 1004
 
-
+# 有下面类的形式，上面的就可以删除，只是自己未在代码中改
 class LogicError(Exception):
     code=0
 
     def __str__(self):
         return self.__class__.__name__
 
-def generate_logic_error(name,code):
+def generate_logic_error(name:str,code:int) ->LogicError:  #str/int/->LogicError只是提示作用，提示类型
     base_cls = (LogicError,)
     return type(name,base_cls,{'code':code})
 
