@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from lib.http import render_json
 from social.logic import get_rcmd_users
-
+from social import logic
+from social.models import Swiped,Friend
 # Create your views here.
 
 def get_users(request):
@@ -17,17 +18,42 @@ def get_users(request):
     return render_json(result)
 
 def like(request):
-    pass
+    """喜欢"""
+    sid = int(request.POST.get('sid'))
+    is_matched = logic.like_someone(request.user,sid)
+    return render_json({'is_matched':is_matched})
+
 
 def superlike(request):
-    pass
+    """超级喜欢"""
+    sid = int(request.POST.get('sid'))
+    is_matched = logic.superlike_someone(request.user, sid)
+    return render_json({'is_matched': is_matched})
+
 
 def dislike(request):
-    pass
+    """不喜欢"""
+    sid = int(request.POST.get('sid'))
+    Swiped.mark(request.user.id, sid, 'dislike')
+    return render_json(None)
+
 
 def rewind(request):
-    pass
+    """反悔"""
+    logic.rewind(request.user)
+    return render_json(None)
+
+
+
+def show_liked_me(request):
+    '''查看喜欢过我的人'''
+    users = logic.users_liked_me(request.user)
+    result = [u.to_dict() for u in users]
+    return render_json(result)
+
 
 def friends(request):
-    pass
-
+    '''好友列表'''
+    my_friends = Friend.friends(request.user.id)
+    friends_info = [frd.to_dict() for frd in my_friends]
+    return render_json({'friends': friends_info})

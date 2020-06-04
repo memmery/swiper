@@ -4,7 +4,6 @@ from django.db import models
 from django.utils.functional import cached_property
 
 
-
 class User(models.Model,ModelMixin):
     '''用户数据模型'''
 
@@ -29,6 +28,7 @@ class User(models.Model,ModelMixin):
         birth_date = datetime.date(self.birth_year, self.birth_month, self.birth_day)
         times = today - birth_date
         return times.days // 365
+
 
     # def to_dict(self):  由于每处都需要所以做成多继承,ModelMixin
     #     return {
