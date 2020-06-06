@@ -3,6 +3,8 @@ from user.models import User
 from lib.http import render_json
 from common import error
 
+import logging
+err_logger = logging.getLogger('err')
 
 
 class AuthMiddleware(MiddlewareMixin):
@@ -34,9 +36,6 @@ class LogicErrorMiddleware(MiddlewareMixin):
         """异常处理"""
         if isinstance(exception,error.LogicError):
             #处理异常
+            err_logger.error((f'LogicError:{exception}'))  #处理日志
+
             return render_json(None,exception.code)
-        # else:
-        #     # 处理程序错误
-        #     error_info = format_exception(*exc_info())
-        #     err_log.error(''.join(error_info))   #将异常信息输出到错误日志
-        #     return render_json(error=error.InternalError)   #错误程序统一使用InternalError
