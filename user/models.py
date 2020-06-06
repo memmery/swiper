@@ -1,6 +1,7 @@
 import datetime
 from lib.orm import ModelMixin
 from django.db import models
+from vip.models import Vip
 from django.utils.functional import cached_property
 
 
@@ -21,6 +22,8 @@ class User(models.Model,ModelMixin):
     birth_year = models.IntegerField(default=2000,verbose_name='出生年')
     birth_month = models.IntegerField(default=1,verbose_name='出生月')
     birth_day = models.IntegerField(default=1,verbose_name='出生日')
+
+    vip_id = models.IntegerField(default=1,verbose_name='vip ID')
 
     @property
     def age(self):
@@ -46,6 +49,14 @@ class User(models.Model,ModelMixin):
         if not hasattr(self, '_profile'):
             self._profile, _ = Profile.objects.get_or_create(id=self.id)
         return self._profile
+
+    @property
+    def vip(self):
+        ''''''
+        if not hasattr(self, '_vip'):
+            asd= Vip.objects.get(id=self.id)
+            self._vip = Vip.objects.get(id=self.id)
+        return self._vip
 
 class Profile(models.Model,ModelMixin):
     '''用户配置项'''

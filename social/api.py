@@ -3,6 +3,7 @@ from lib.http import render_json
 from social.logic import get_rcmd_users
 from social import logic
 from social.models import Swiped,Friend
+from vip.logic import need_perm
 # Create your views here.
 
 def get_users(request):
@@ -23,7 +24,7 @@ def like(request):
     is_matched = logic.like_someone(request.user,sid)
     return render_json({'is_matched':is_matched})
 
-
+@need_perm('superlike')
 def superlike(request):
     """超级喜欢"""
     sid = int(request.POST.get('sid'))
@@ -37,7 +38,7 @@ def dislike(request):
     Swiped.mark(request.user.id, sid, 'dislike')
     return render_json(None)
 
-
+@need_perm('rewind')
 def rewind(request):
     """反悔"""
     logic.rewind(request.user)
