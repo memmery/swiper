@@ -1,0 +1,18 @@
+2020-06-06 03:38:09 ERROR [27021-Thread-1] logic.wrapper line 13: user(2) not has permission rewind
+2020-06-06 03:38:09 ERROR [27021-Thread-1] auth_middleware.process_exception line 39: LogicError:NotHasPerm
+2020-06-06 03:54:42 ERROR [27244-MainThread] <ipython-input-13-21e82b5369fc>.<module> line 1: asd123
+2020-06-06 03:55:25 WARNING [27244-MainThread] <ipython-input-15-f4dfaed18239>.<module> line 1: asd123
+2020-06-06 03:56:10 WARNING [27244-MainThread] <ipython-input-16-f4dfaed18239>.<module> line 1: asd123
+2020-06-06 03:56:12 WARNING [27244-MainThread] <ipython-input-17-f4dfaed18239>.<module> line 1: asd123
+2020-06-06 03:56:13 WARNING [27244-MainThread] <ipython-input-18-f4dfaed18239>.<module> line 1: asd123
+2020-06-06 03:56:14 WARNING [27244-MainThread] <ipython-input-19-f4dfaed18239>.<module> line 1: asd123
+2020-06-06 03:56:21 ERROR [27244-MainThread] <ipython-input-21-21e82b5369fc>.<module> line 1: asd123
+2020-06-06 03:56:22 ERROR [27244-MainThread] <ipython-input-22-21e82b5369fc>.<module> line 1: asd123
+2020-06-06 03:56:24 ERROR [27244-MainThread] <ipython-input-23-21e82b5369fc>.<module> line 1: asd123
+2020-06-06 03:56:30 ERROR [27244-MainThread] <ipython-input-24-e2b18c4b2c71>.<module> line 1: asd123a
+2020-06-06 03:56:36 ERROR [27244-MainThread] <ipython-input-25-e2b18c4b2c71>.<module> line 1: asd123a
+2020-06-06 03:56:38 ERROR [27244-MainThread] <ipython-input-26-e2b18c4b2c71>.<module> line 1: asd123a
+2020-06-06 03:56:43 ERROR [27244-MainThread] <ipython-input-27-a399380aaef6>.<module> line 1: asd123b
+2020-06-06 04:00:52 ERROR [27244-MainThread] <ipython-input-28-a399380aaef6>.<module> line 1: asd123b
+2020-06-06 04:00:54 ERROR [27244-MainThread] <ipython-input-29-a399380aaef6>.<module> line 1: asd123b
+2020-06-06 04:00:56 ERROR [27244-MainThread] <ipython-input-30-a399380aaef6>.<module> line 1: asd123b

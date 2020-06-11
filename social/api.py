@@ -21,6 +21,8 @@ def get_users(request):
 def like(request):
     """喜欢"""
     sid = int(request.POST.get('sid'))
+    logic.add_swipe_score(sid, 'like')
+
     is_matched = logic.like_someone(request.user,sid)
     return render_json({'is_matched':is_matched})
 
@@ -28,6 +30,9 @@ def like(request):
 def superlike(request):
     """超级喜欢"""
     sid = int(request.POST.get('sid'))
+
+    logic.add_swipe_score(sid, 'superlike')
+
     is_matched = logic.superlike_someone(request.user, sid)
     return render_json({'is_matched': is_matched})
 
@@ -35,6 +40,8 @@ def superlike(request):
 def dislike(request):
     """不喜欢"""
     sid = int(request.POST.get('sid'))
+    logic.add_swipe_score(sid, 'dislike')
+
     Swiped.mark(request.user.id, sid, 'dislike')
     return render_json(None)
 

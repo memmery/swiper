@@ -14,7 +14,7 @@ class Swiped(models.Model):
 
     uid = models.IntegerField(verbose_name='滑动者的 UID')
     sid = models.IntegerField(verbose_name='被滑动者的 UID')
-    flag = models.CharField(max_length=8, choices=FLAGS)
+    flag = models.CharField(max_length=16, choices=FLAGS)
     time = models.DateTimeField(auto_now_add=True)
 
     @classmethod

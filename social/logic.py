@@ -3,6 +3,9 @@ import datetime
 from social.models import Swiped
 from social.models import Friend
 
+# from lib.cache import rds
+from django_redis import get_redis_connection
+
 def get_rcmd_users(user):
     '''
     获取推荐用户
@@ -58,3 +61,19 @@ def users_liked_me(user):
     swipes = Swiped.like_me(user.id)
     swiped_uid_list = [s.uid for s in swipes]
     return User.objects.filter(id__in=swiped_uid_list)
+
+
+def add_swipe_score(uid,flag):
+    '''添加被滑动的积分记录'''
+    rds=get_redis_connection('default')
+
+    score = {'like':5,'superlike':7,'dislike':-5}[flag]
+    rds.zincrby('HotSwiped',uid,score)
+
+def get_top_n_swiped(num=10):
+    '''获取topn 的华东数据'''
+    rds=get_redis_connection('default')
+    origin_data = rds.zrevrange('HotSwiped',0,num-1,withscores=True)
+    cleaned = [[int(uid),int(swiped)] for uid, swiped in origin_data]
+    uid_list = [uid for uid,_ in cleaned]
+    users = User.objects.filter(in__in=uid_list)

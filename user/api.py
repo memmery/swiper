@@ -63,7 +63,7 @@ def modify_profile(request):
 def upload_avatar(request):
     '''头像上传'''
     file = request.FILES.get('avatar')
-    if not file:
+    if  file:
         save_upload_file(request.user, file)
         return render_json(None)
     else:

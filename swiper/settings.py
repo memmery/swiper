@@ -74,6 +74,39 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'swiper.wsgi.application'
 
+# 缓存配置  本机内存配置
+# CACHES = {'fafault':
+#               {'BACKEND':'django.core.cache.backends.locmem.LocMemCache'}
+#           }
+
+# 使用 django_redis 做缓存
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            # "PICKLE_VERSION": -1,   #选择性能最高的算法
+            "CONNECTION_POOL_KWARGS":{"max_connections":100},
+        }
+    }
+}
+
+# # 外部redis
+# REDIS = {
+#     'Master':{
+#         'host':'127.0.0.1',
+#         'post':6379,
+#         'db':1,
+#     },
+#     'Slave': {
+#         'host':'127.0.0.1',
+#         'post':6379,
+#         'db':1,
+#     },
+# }
+
+
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
