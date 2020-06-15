@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from common import error
 from user.logic import send_verify_code, check_vcode, save_upload_file
 from user.forms import ProfileForm
+from social.logic import pre_rcmd
 
 
 def get_verify_code(request):
@@ -24,10 +25,15 @@ def login(request):
         user, created = User.objects.get_or_create(phonenum=phonenum)
         # 记录登录状态
         request.session['uid'] = user.id
+        pre_rcmd(user)
         return render_json(user.to_dict())
     else:
         return render_json(None, error.OK)
 
+def user_back(request):
+    user = request.user
+    pre_rcmd(user)
+    return render_json(None)
 
 def get_profile(request):
     """获取个人资料"""
@@ -48,10 +54,8 @@ def modify_profile(request):
     form = ProfileForm(request.POST)
     if form.is_valid():
         user = request.user
-        print('user',user)
         user.profile.__dict__.update(form.cleaned_data)
         user.profile.save()
-        print('1234')
         # 修改缓存
         key = 'Profile-%s' % user.id
         cache.set(key, user.profile.to_dict())

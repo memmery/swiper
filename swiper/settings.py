@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'swiper.wsgi.application'
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379",
+        "LOCATION": "redis://127.0.0.1:6379/1",  #redis默认分了16个数据库
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             # "PICKLE_VERSION": -1,   #选择性能最高的算法
@@ -92,19 +92,19 @@ CACHES = {
     }
 }
 
-# # 外部redis
-# REDIS = {
-#     'Master':{
-#         'host':'127.0.0.1',
-#         'post':6379,
-#         'db':1,
-#     },
-#     'Slave': {
-#         'host':'127.0.0.1',
-#         'post':6379,
-#         'db':1,
-#     },
-# }
+# 外部redis
+REDIS = {
+    'Master':{
+        'host':'127.0.0.1',
+        'port':6379,
+        'db':1,
+    },
+    'Slave': {
+        'host':'127.0.0.1',
+        'port':6379,
+        'db':1,
+    },
+}
 
 
 
